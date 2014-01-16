@@ -1,0 +1,23 @@
+{
+    "name": "witooh/uploader",
+    "description": "",
+    "authors": [
+        {
+            "name": "witooh",
+            "email": "witoo@outlook.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Witooh\\Uploader\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
