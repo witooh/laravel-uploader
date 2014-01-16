@@ -15,7 +15,7 @@ class File implements IUploader {
 
     protected function getFullPath($path)
     {
-        return $this->basePath . '/' . $path;
+        return $this->basePath . $path;
     }
 
     /**
@@ -26,15 +26,15 @@ class File implements IUploader {
     public function save($src, $dest)
     {
         $dest = $this->getFullPath($dest);
+        $savePath = $dest;
         $parts = explode('/', $dest);
-        $file = array_pop($parts);
+        array_pop($parts);
         $dest = '';
         foreach($parts as $part)
             if(!is_dir($dest .= "/$part")) mkdir($dest);
-//        $f = @file_put_contents("$dest/$file", $src);
-        $f = @move_uploaded_file($src, "$dest/$file");
 
-        return $f == false ? false : true;
+        return \File::move($src, $savePath);
+
     }
 
     /**
