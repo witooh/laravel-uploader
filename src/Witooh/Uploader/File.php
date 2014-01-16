@@ -31,7 +31,8 @@ class File implements IUploader {
         $dest = '';
         foreach($parts as $part)
             if(!is_dir($dest .= "/$part")) mkdir($dest);
-        $f = file_put_contents("$dest/$file", $src);
+//        $f = @file_put_contents("$dest/$file", $src);
+        $f = @move_uploaded_file($src, "$dest/$file");
 
         return $f == false ? false : true;
     }
