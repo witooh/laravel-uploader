@@ -9,7 +9,7 @@ class UploaderServiceProvider extends ServiceProvider {
 	 *
 	 * @var bool
 	 */
-	protected $defer = false;
+	protected $defer = true;
 
 	/**
 	 * Bootstrap the application events.
@@ -28,7 +28,9 @@ class UploaderServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+        $this->app->bindShared('uploader', function($app){
+            return new UploaderManager(new UploaderFactory(), $app);
+        });
 	}
 
 	/**
@@ -38,7 +40,7 @@ class UploaderServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return array('uploader');
 	}
 
 }
