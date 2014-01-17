@@ -43,7 +43,11 @@ class File implements IUploader {
      */
     public function delete($dest)
     {
-        return unlink ($this->getFullPath($dest));
+        try{
+            return unlink ($this->getFullPath($dest));
+        }catch (\Exception $e){
+            return false;
+        }
     }
 
 
