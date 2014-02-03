@@ -31,4 +31,9 @@ class Uploader {
     {
         return $this->driver->delete($dest);
     }
+
+    public function deleteFolder($dest)
+    {
+        return $this->driver->deleteFolder($dest);
+    }
 } 
