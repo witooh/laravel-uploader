@@ -26,4 +26,9 @@ class UploaderFactory {
     {
         return new File($config['base_path']);
     }
+
+    public function createS3($config)
+    {
+        return new S3($config);
+    }
 } 

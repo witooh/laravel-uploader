@@ -8,6 +8,7 @@
         }
     ],
     "require": {
+        "aws/aws-sdk-php": "2.6.*@dev",
         "php": ">=5.3.0",
         "illuminate/support": "4.1.*"
     },
