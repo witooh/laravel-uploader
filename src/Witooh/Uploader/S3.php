@@ -64,21 +64,26 @@ class S3 implements IUploader {
         if(substr($dir,0, 1) == "/"){
             $dir = substr($dir, 1);
         }
-        $keys = [];
+
         $re = $this->s3->listObjects([
             'Bucket'=>$this->bucket,
             'Prefix'=>$dir,
         ]);
 
-        foreach ($re['Contents'] as $c){
-            $keys[] = ['Key'=>$c['Key']];
+        if (count($re) > 0){
+            $keys = [];
+            foreach ($re['Contents'] as $c){
+                $keys[] = ['Key'=>$c['Key']];
+            }
+
+            $this->s3->deleteObjects([
+                'Bucket'=>$this->bucket,
+                'Objects'=>$keys,
+                'Quiet'=>true,
+            ]);
         }
 
-        $this->s3->deleteObjects([
-            'Bucket'=>$this->bucket,
-            'Objects'=>$keys,
-            'Quiet'=>true,
-        ]);
+
 
         return true;
     }
