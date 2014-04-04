@@ -70,7 +70,7 @@ class S3 implements IUploader {
             'Prefix'=>$dir,
         ]);
 
-        if (count($re) > 0){
+        if (isset($re['Contents']) && count($re['Contents']) > 0){
             $keys = [];
             foreach ($re['Contents'] as $c){
                 $keys[] = ['Key'=>$c['Key']];
