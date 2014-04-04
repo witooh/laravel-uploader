@@ -52,21 +52,35 @@ class S3 implements IUploader {
     }
 
     /**
-     * @param string $directory
+     * @param string $dir
      * @return bool
      */
-    public function deleteFolder($directory)
+    public function deleteFolder($dir)
     {
-        if(substr($directory,-1) == "/") {
-            $directory = substr($directory,0,-1);
+        if(substr($dir,-1) == "/") {
+            $dir = substr($dir,0,-1);
         }
-        if(!file_exists($directory) || !is_dir($directory)) {
-            return false;
-        } elseif(!is_readable($directory)) {
-            return false;
-        } else {
-            return $this->delete($directory);
+
+        if(substr($dir,0, 1) == "/"){
+            $dir = substr($dir, 1);
         }
+        $keys = [];
+        $re = $this->s3->listObjects([
+            'Bucket'=>$this->bucket,
+            'Prefix'=>$dir,
+        ]);
+
+        foreach ($re['Contents'] as $c){
+            $keys[] = ['Key'=>$c['Key']];
+        }
+
+        $this->s3->deleteObjects([
+            'Bucket'=>$this->bucket,
+            'Objects'=>$keys,
+            'Quiet'=>true,
+        ]);
+
+        return true;
     }
 
 } 

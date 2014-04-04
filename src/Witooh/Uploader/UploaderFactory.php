@@ -13,6 +13,7 @@ class UploaderFactory {
         $driver = $config['driver'];
         switch($driver){
             case 'file': return $this->createFile($config);
+            case 's3': return $this->createS3($config);
         }
 
         throw new \InvalidArgumentException("Unsupported driver [$driver]");
