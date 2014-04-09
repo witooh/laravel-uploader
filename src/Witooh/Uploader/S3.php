@@ -31,7 +31,7 @@ class S3 implements IUploader {
                 'Bucket' => $this->bucket,
                 'Key'    => $dest,
                 'Body'   => EntityBody::factory(fopen($src, 'r')),
-                'ContentType' => 'image/jpeg',
+//                'ContentType' => 'image/jpeg',
                 'ACL'    => CannedAcl::PUBLIC_READ,
             ));
         }
