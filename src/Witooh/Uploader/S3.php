@@ -3,7 +3,6 @@ namespace Witooh\Uploader;
 
 use Aws\S3\Enum\CannedAcl;
 use Aws\S3\S3Client;
-use Carbon\Carbon;
 use Guzzle\Http\EntityBody;
 
 class S3 implements IUploader {
@@ -34,7 +33,6 @@ class S3 implements IUploader {
                 'Key'    => $dest,
                 'Body'   => EntityBody::factory(fopen($src, 'r')),
                 'CacheControl'=>'max-age='.$cacheage,
-                'Expires'=>Carbon::now()->addYears(5)->timestamp,
                 'ContentType' => $this->MimeContentType($dest),
                 'ACL'    => CannedAcl::PUBLIC_READ,
             ));
